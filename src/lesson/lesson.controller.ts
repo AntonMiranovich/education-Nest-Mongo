@@ -8,13 +8,14 @@ import {
   Put,
 } from '@nestjs/common';
 import { LessonService } from './lesson.service';
+import { BodyDtoLesson } from './lesson.dto';
 
 @Controller('/lesson')
 export class LessonController {
-  constructor(private readonly lessonService: LessonService) {}
+  constructor(private readonly lessonService: LessonService) { }
 
   @Post()
-  async create(@Body() obj) {
+  async create(@Body() obj: BodyDtoLesson) {
     return await this.lessonService.create(obj);
   }
 
@@ -24,17 +25,17 @@ export class LessonController {
   }
 
   @Get('/:id')
-  async getById(@Param('id') id) {
+  async getById(@Param('id') id:number) {
     return await this.lessonService.getById(id);
   }
 
   @Put('/:id')
-  async update(@Param('id') id, @Body() obj) {
+  async update(@Param('id') id:number, @Body() obj: BodyDtoLesson) {
     return await this.lessonService.putById(id, obj);
   }
 
   @Delete('/:id')
-  async delete(@Param('id') id) {
+  async delete(@Param('id') id:number) {
     return await this.lessonService.deleteById(id);
   }
 }

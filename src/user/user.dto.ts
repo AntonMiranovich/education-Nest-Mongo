@@ -1,20 +1,18 @@
-import { IsInt, IsString } from 'class-validator';
+import { IsInt, IsString, Max, Min, MinLength } from 'class-validator';
 
 export class BodyDto {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
   @IsString()
   name: string;
-
-  email: string;
   password: string;
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  @IsString()
+  @MinLength(8)
+  email: string;
+
   @IsInt()
+  @Min(18)
+  @Max(100)
   age: number;
 }
 
-export class IdDto {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  @IsString()
-  id: string;
-}

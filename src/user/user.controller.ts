@@ -8,13 +8,14 @@ import {
   Put,
 } from '@nestjs/common';
 import { UserService } from './user.service';
+import { BodyDto } from './user.dto';
 
 @Controller('/user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Post()
-  async create(@Body() obj) {
+  async create(@Body() obj: BodyDto) {
     return await this.userService.create(obj);
   }
 
@@ -24,17 +25,17 @@ export class UserController {
   }
 
   @Get('/:id')
-  async getById(@Param('id') id) {
+  async getById(@Param('id') id: number) {
     return await this.userService.getById(id);
   }
 
   @Put('/:id')
-  async update(@Param('id') id, @Body() obj) {
+  async update(@Param('id') id: number, @Body() obj: BodyDto) {
     return await this.userService.putById(id, obj);
   }
 
   @Delete('/:id')
-  async delete(@Param('id') id) {
+  async delete(@Param('id') id: number) {
     return await this.userService.deleteById(id);
   }
 }

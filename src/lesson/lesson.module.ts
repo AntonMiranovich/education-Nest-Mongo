@@ -1,8 +1,9 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { LessonSchema } from 'src/schemas/lesson.schema';
 import { LessonController } from './lesson.controller';
 import { LessonService } from './lesson.service';
+import { ValidationLesson } from 'src/middlewares';
 
 @Module({
   imports: [
@@ -11,4 +12,10 @@ import { LessonService } from './lesson.service';
   controllers: [LessonController],
   providers: [LessonService],
 })
-export class LessonModule {}
+export class LessonModule {
+  configure(objMiddleware: MiddlewareConsumer) {
+    objMiddleware
+      .apply(ValidationLesson)
+      .forRoutes({ path: '/lesson', method: RequestMethod.POST });
+  }
+}

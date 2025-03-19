@@ -1,6 +1,6 @@
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Validation } from 'src/middlewares';
+import { ValidationUser } from 'src/middlewares';
 import { UserSchema } from 'src/schemas/user.shema';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
@@ -13,7 +13,7 @@ import { UserService } from './user.service';
 export class UserModule {
   configure(objMiddleware: MiddlewareConsumer) {
     objMiddleware
-      .apply(Validation)
+      .apply(ValidationUser)
       .forRoutes({ path: '/users', method: RequestMethod.POST });
   }
 }
